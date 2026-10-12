@@ -17,6 +17,7 @@
   let currentProduct = null;
   let currentSize = null;
   let activeCat = 'All';
+  let showFavorites = false;
   let toastTimer;
   const FALLBACK = 'assets/shoe-fallback.svg';
   document.addEventListener('error', e => {
@@ -34,7 +35,7 @@
     const search = $('searchInput').value.trim().toLowerCase();
     const audience = $('audienceFilter').value;
     const sort = $('sortSelect').value;
-    const matches = products.filter(p => (activeCat === 'All' || p.category === activeCat) && (audience === 'All' || p.audience === audience || (p.audience === 'Unisex' && (audience === 'Men' || audience === 'Women'))) && (`${p.name} ${p.brand} ${p.color} ${p.category}`.toLowerCase().includes(search)));
+    const matches = products.filter(p => (!showFavorites || favorites.includes(p.id)) && (activeCat === 'All' || p.category === activeCat) && (audience === 'All' || p.audience === audience || (p.audience === 'Unisex' && (audience === 'Men' || audience === 'Women'))) && (`${p.name} ${p.brand} ${p.color} ${p.category}`.toLowerCase().includes(search)));
     const sorted = [...matches].sort((a,b) => sort === 'priceAsc' ? a.price - b.price : sort === 'priceDesc' ? b.price - a.price : sort === 'brand' ? a.brand.localeCompare(b.brand) : a.id - b.id);
     $('resultsText').textContent = `Showing ${sorted.length} of ${products.length} styles`;
     $('productTotal').textContent = products.length;
@@ -54,7 +55,7 @@
     renderProducts();
   }
   function resetFilters() {
-    $('searchInput').value=''; $('audienceFilter').value='All'; $('sortSelect').value='featured'; setCategory('All');
+    $('searchInput').value=''; $('audienceFilter').value='All'; $('sortSelect').value='featured'; showFavorites = false; $('favoritesOnly').classList.remove('is-active'); $('favoritesOnly').setAttribute('aria-pressed','false'); setCategory('All');
   }
   function openModal(id) {
     let p = products.find(x=>x.id===Number(id)); if(!p)return;
@@ -96,7 +97,7 @@
   function openCart(){closeModal();$('overlay').hidden=false;$('cartDrawer').classList.add('open');$('cartDrawer').setAttribute('aria-hidden','false');document.body.style.overflow='hidden';$('cartClose').focus();}
   function closeCart(){$('overlay').hidden=true;$('cartDrawer').classList.remove('open');$('cartDrawer').setAttribute('aria-hidden','true');document.body.style.overflow='';}
   async function copyInquiry() {
-    const lines=['OLIDLAB — Product inquiry (demo only)','These are third-party references; OLIDLAB has not confirmed stock/pricing.',''];
+    const lines=['OLIDLAB — Product inquiry (demo only)','Fictional contact +1 (202) 555-0147 is NOT connected.','These are third-party references; OLIDLAB has not confirmed stock/pricing.',''];
     bag.forEach(x=>{let p=products.find(y=>y.id===x.id);lines.push(`${x.qty} × ${p.brand} ${p.name} · US ${x.size} · ${money(p.price)} each (${p.verified?'retail reference':'estimate'})\nSource: ${p.source}`)});
     lines.push('',`Estimated item total: ${$('cartTotal').textContent}`,'Contact the actual retailer to verify price, stock and delivery.');
     const content=lines.join('\n');
@@ -104,6 +105,7 @@
   }
   document.querySelector('#categoryTabs').addEventListener('click',e=>{const tab=e.target.closest('[data-cat]');if(tab)setCategory(tab.dataset.cat);});
   ['searchInput','audienceFilter','sortSelect'].forEach(id => $(id).addEventListener(id==='searchInput'?'input':'change',renderProducts));
+  $('favoritesOnly').addEventListener('click',()=>{showFavorites=!showFavorites;$('favoritesOnly').classList.toggle('is-active',showFavorites);$('favoritesOnly').setAttribute('aria-pressed',String(showFavorites));renderProducts();});
   $('resetFilters').addEventListener('click',resetFilters);$('emptyReset').addEventListener('click',resetFilters);
   $('searchFocus').addEventListener('click',()=>{$('shop').scrollIntoView();setTimeout(()=>$('searchInput').focus(),300);});
   $('productsGrid').addEventListener('click',e=>{
@@ -123,9 +125,9 @@
   document.querySelectorAll('.mobile-nav a').forEach(a=>a.addEventListener('click',()=>{$('mobileNav').hidden=true;$('menuToggle').setAttribute('aria-expanded','false');}));
   document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('modalBackdrop').hidden)closeModal();if($('cartDrawer').classList.contains('open'))closeCart();}});
   const phone=(config.advisorPhone||'').trim();
-  if(phone){$('supportNumber').textContent=phone;$('phoneDisclosure').textContent='Business advice line (verify before publishing).';}
+  if(phone){$('supportNumber').textContent=phone;$('phoneDisclosure').textContent=config.demoPhone ? 'DEMO CONTACT · FICTIONAL NUMBER, NOT ACTIVE' : 'Business support line · verify availability before publishing.';}
   else {$('supportNumber').textContent='COMING SOON';}
-  $('contactButton').addEventListener('click',()=>notify('Set a verified advisor phone in store-config.js before launch.'));
+  $('contactButton').addEventListener('click',()=>notify('Demo phone only. Add your real support number in store-config.js before launching.'));
   $('footerPolicies').addEventListener('click',()=>notify('Demo preview: no live orders, payment processing, shipping or published return policy.'));
   renderProducts();renderBag();
 })();

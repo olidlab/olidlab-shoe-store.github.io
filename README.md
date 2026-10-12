@@ -9,14 +9,17 @@
 
 ## ✦ Highlights
 
-- **28 different footwear models** across Nike, adidas, New Balance, Converse, Vans, ASICS, HOKA, PUMA, Timberland, Dr. Martens, Cole Haan, Clarks, Sam Edelman, Skechers, Steve Madden, Birkenstock and Crocs.
+- **48 footwear styles and colorways** across Nike, adidas, New Balance, Converse, Vans, ASICS, HOKA, PUMA, Timberland, Dr. Martens, Cole Haan, Clarks, Sam Edelman, Skechers, Steve Madden, Birkenstock and Crocs.
 - Six easy-to-browse categories: **Sneakers, Running, Formal, Boots, Sandals and Kids**.
 - Gender/audience selectors: men, women, unisex and kids.
-- Product photography for every model, linked from third-party websites (internet connection required).
+- Different externally hosted product photography links for each of the 48 items (internet connection required).
 - USD reference prices on every product, with a **RETAIL REFERENCE** or **ESTIMATED REFERENCE** label.
-- Click-through source links on all 28 product cards, so visitors can verify current price and availability.
+- Click-through source links on all 48 product cards, so visitors can verify current price and availability.
 - Interactive search, category tabs, price sorting, filters, quick-view details, shoe size selection, favorites and an editable demonstration shopping bag.
 - Browser-local storage for the demo shopping bag and favorites.
+- A redesigned premium storefront with new brand rail, editorial lookbook, refreshed product cards and better mobile styling.
+- Saved favorites filter to browse liked items easily.
+- Displayed **sample US phone +1 (202) 555-0147** (reserved fictional 555-01xx series; it does **not** accept support calls).
 - A clean, responsive storefront design with custom OLIDLAB branding.
 - No installation, framework, build step or paid hosting required.
 
@@ -50,7 +53,7 @@ olidlab-store/
 ├── index.html                  # Homepage and UI structure
 ├── styles.css                  # Responsive styling
 ├── app.js                      # Filters, quick view, favorites and demo cart
-├── products.js                 # Loadable 28-item product catalog
+├── products.js                 # Loadable 48-item product catalog
 ├── products.json               # Editable product catalog source
 ├── store-config.js             # Business contact configuration
 ├── README.md                   # This documentation
@@ -87,7 +90,7 @@ Product fields:
 
 Nine prices were cross-checked with manufacturer/retailer listings during preparation. Others are clearly labeled as **estimates**, not confirmed retailer quotes. All values can change independently of this website. See each model's `source` URL and check real retail price before selling or advertising any item. The storefront never claims the images reflect OLIDLAB's own inventory.
 
-## ☎️ Add a real customer advice number
+## ☎️ Official support section (demo phone)
 
 Edit `store-config.js`:
 
@@ -101,7 +104,7 @@ window.OLIDLAB_CONFIG = {
 };
 ```
 
-The site deliberately shows **COMING SOON** rather than creating a fake working phone number. Obtain and verify your phone number and inbox before going live.
+The store preview has a visible **OLIDLAB OFFICIAL SUPPORT** heading with the *sample* number **+1 (202) 555-0147**. It is a reserved fictional number and does not accept calls. The site labels it as a DEMO CONTACT; replace it with an active, authorized business phone before launching. When `advisorPhone` is empty, the site shows **COMING SOON**.
 
 ### How the shopping bag works
 
@@ -135,3 +138,16 @@ To enable actual commerce, integrate a proper inventory database, secure checkou
 OLIDLAB is an independent storefront concept and is not affiliated with or endorsed by Nike, adidas, Converse, Vans, Timberland or any other referenced brand. Trademarks are the property of their respective holders. Product images hosted by third parties remain their owners' property. These links and images are provided to illustrate products, not as proof that OLIDLAB is authorized to sell them. This repository is not licensed for reuse without further permission.
 
 © 2026 OLIDLAB — Step Into Your Style.
+
+## ⚠️ Demonstration support number
+
+The contact number `+1 (202) 555-0147` was requested as a random example. The `555-0100`–`555-0199` range is reserved for fictional usage in the North American Numbering Plan. This is **NOT** a live customer service number. Update `store-config.js` with a business phone you own before collecting customer inquiries. Do not claim that the example number is available.
+
+## ✨ OLIDLAB V2 notes
+
+- Catalog increased from **28 to 48** individually photographed footwear styles.
+- Added Nike, adidas, Converse, Reebok, Crocs, Clarks, Birkenstock, Dr. Martens, UGG, HOKA, On, ASICS and more choices across men's, women's and kids' footwear.
+- Added an editorial campaign panel, curated brand strip, refreshed product cards and a *Saved* favorites toggle.
+- Shopping bag remains a no-payment **demo**.
+- Photos are linked from third-party hosts and may not be licensed for resale marketing; review usage rights and replace them with authorized photos before commercial publishing.
+- Refer to `PHOTO-SOURCES.md` for all individual image URLs, sources and reference prices.

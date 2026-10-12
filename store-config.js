@@ -1,8 +1,10 @@
-// EDIT BEFORE LAUNCH. Do not publish an invented business address, phone number or email.
+// OLIDLAB preview contact: fictitious reserved NANP number (555-0100 to 555-0199).
+// Replace this demo value with your real authorized business contact before launch.
 window.OLIDLAB_CONFIG = {
   name: 'OLIDLAB',
-  advisorPhone: '', // Your REAL business phone, e.g. '+1 212 555 0100' (example is not a real contact)
-  supportEmail: '', // Your verified support inbox
+  advisorPhone: '+1 (202) 555-0147',
+  demoPhone: true,
+  supportEmail: '',
   currency: 'USD',
-  liveCheckoutEnabled: false // This demo intentionally has no payments or orders.
+  liveCheckoutEnabled: false
 };
